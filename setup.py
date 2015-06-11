@@ -1,5 +1,5 @@
 __author__ = 'Konstantin Weddige'
-from distutils.core import setup, Extension
+from setuptools import setup, Extension, find_packages
 
 
 setup(
@@ -7,9 +7,10 @@ setup(
     version='0.1',
     description='Smallest Enclosing Balls of Points',
     author='Bernd Gärtner, Konstantin Weddige',
+    packages=['miniball',],
     ext_modules=[
         Extension(
-            'miniball',
+            'miniball.bindings',
             ['src/miniballmodule.cpp', ],
             language='c++',
         ),
