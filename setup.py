@@ -4,7 +4,7 @@ from setuptools import setup, Extension, find_packages
 
 setup(
     name='Miniball',
-    version='0.1',
+    version='0.2',
     description='Smallest Enclosing Balls of Points',
     author='Bernd Gärtner, Konstantin Weddige',
     packages=['miniball',],
