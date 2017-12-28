@@ -27,12 +27,16 @@ static PyObject* miniball_miniball(PyObject *self, PyObject *args)
     while (x) {
       double xx = PyFloat_AsDouble(x);
       points[i][n] = xx;
+      Py_DECREF(x);
       x = PyIter_Next(point_iter);
       n++;
     }
+    Py_DECREF(point_iter);
+    Py_DECREF(next);
     next = PyIter_Next(iter);
     i++;
   }
+  Py_DECREF(iter);
   // Do the math
   typedef double* const* PointIterator;
   typedef const double* CoordIterator;
@@ -63,6 +67,7 @@ static PyObject* miniball_miniball(PyObject *self, PyObject *args)
   for (int j = 0; j < size; j++) {
     delete[] points[j];
   }
+  delete points;  
 
   return result;
 }
