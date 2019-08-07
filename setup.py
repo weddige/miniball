@@ -5,7 +5,7 @@ with open("README.rst", "r") as fh:
     long_description = fh.read()
 
 setup(
-    name='Miniball',
+    name='MiniballCpp',
     version='0.2',
     description='Smallest Enclosing Balls of Points',
     long_description=long_description,
@@ -20,7 +20,6 @@ setup(
             language='c++',
         ),
     ],
-    include_package_data=True,
     classifiers=[
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Programming Language :: Python',
