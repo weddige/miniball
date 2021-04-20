@@ -1,7 +1,7 @@
 __author__ = 'Konstantin Weddige'
 from setuptools import setup, Extension
 
-with open("README.rst", "r") as fh:
+with open("README.rst", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
