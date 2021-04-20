@@ -67,7 +67,7 @@ static PyObject* miniball_miniball(PyObject *self, PyObject *args)
   for (int j = 0; j < size; j++) {
     delete[] points[j];
   }
-  delete points;  
+  delete[] points;
 
   return result;
 }
