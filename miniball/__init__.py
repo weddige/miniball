@@ -1,4 +1,4 @@
-__author__ = 'Konstantin Weddige'
+__author__ = "Konstantin Weddige"
 import miniball.bindings
 
 
