@@ -1,5 +1,5 @@
 //    Copright (C) 1999-2013, Bernd Gaertner
-//    $Rev: 3581 $
+//    $Rev: 5891 $
 //
 //    This program is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
@@ -99,6 +99,9 @@ namespace Miniball {
     NT** v;
     NT** a;
 
+    // by how much do we allow points outside?
+    NT default_tol;
+
   public:
     // The iterator type to go through the support points
     typedef typename std::list<Pit>::const_iterator SupportPointIterator;
@@ -142,7 +145,7 @@ namespace Miniball {
     // POST: return true if the relative error is at most tol, and the
     //       suboptimality is 0; the default tolerance is 10 times the
     //       coordinate type's machine epsilon  
-    bool is_valid (NT tol = NT(10) * std::numeric_limits<NT>::epsilon()) const;
+    bool is_valid () const;
 
     // POST: returns the time in seconds taken by the constructor call for 
     //       computing the smallest enclosing ball  
@@ -187,7 +190,8 @@ namespace Miniball {
       z (NULL),
       f (NULL),
       v (NULL),
-      a (NULL)
+      a (NULL),
+      default_tol (NT(10) * std::numeric_limits<NT>::epsilon())
   {	
     assert (points_begin != points_end);
     create_arrays();
@@ -303,10 +307,10 @@ namespace Miniball {
   }
 
   template <typename CoordAccessor>  
-  bool Miniball<CoordAccessor>::is_valid (NT tol) const
+  bool Miniball<CoordAccessor>::is_valid () const
   {
     NT suboptimality;
-    return ( (relative_error (suboptimality) <= tol) && (suboptimality == 0) );
+    return ( (relative_error (suboptimality) <= default_tol) && (suboptimality == 0) );
   }
 
   template <typename CoordAccessor>  
@@ -368,6 +372,7 @@ namespace Miniball {
     Pit         pivot, k;
     NT          e, max_e, sqr_r;
     Cit p;
+    unsigned int loops_without_progress = 0;
     do {
       old_sqr_r = current_sqr_r;
       sqr_r = current_sqr_r;
@@ -386,7 +391,7 @@ namespace Miniball {
 	}
       }
 
-      if (max_e > nt0) {
+      if (sqr_r < 0 || max_e > sqr_r * default_tol) {
 	// check if the pivot is already contained in the support set
 	if (std::find(L.begin(), support_end, pivot) == support_end) {
 	  assert (fsize == 0);
@@ -397,7 +402,11 @@ namespace Miniball {
 	  }
 	}
       }
-    } while (old_sqr_r < current_sqr_r);
+      if (old_sqr_r < current_sqr_r)
+	loops_without_progress = 0;
+      else
+	++loops_without_progress; 
+    } while (loops_without_progress < 2);
   }
 
   template <typename CoordAccessor>  
