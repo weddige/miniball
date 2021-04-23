@@ -6,7 +6,7 @@ with open("README.rst", "r", encoding="utf-8") as fh:
 
 setup(
     name="MiniballCpp",
-    version="0.2.1",
+    version="0.2.2",
     description="Smallest Enclosing Balls of Points",
     long_description=long_description,
     author="Bernd Gärtner, Konstantin Weddige",
