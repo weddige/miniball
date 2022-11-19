@@ -6,13 +6,15 @@ These are python bindings to Bernd Gärtners `miniball software`__.
 Setup
 -----
 
-To install *miniball* clone the repository and run the setup script:
+You can install *miniball* with:
 
 .. code-block:: bash
-   
-   python setup.py install
 
-There is also a package for Arch Linux: https://aur.archlinux.org/packages/python-miniball/
+   pip install MiniballCpp
+
+There are wheels available for most platforms.
+
+There is also a package for Arch Linux (that is not maintained by me!): https://aur.archlinux.org/packages/python-miniball/.
 
 Example
 -------
