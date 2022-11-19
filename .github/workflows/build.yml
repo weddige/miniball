@@ -26,12 +26,8 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
+          name: python-package-distributions
           path: ./dist/*.whl
-
-      - name: Publish wheel to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
 
   build_sdist:
     name: Build source distribution
@@ -47,7 +43,21 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
+          name: python-package-distributions
           path: ./dist/*.tar.gz
+
+  publish:
+    name: Publish to PyPI
+    runs-on: ubuntu-latest
+    needs:
+      - build_wheels
+      - build_sdist
+
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: python-package-distributions
+          path: ./dist/
 
       - name: Publish source distribution to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
