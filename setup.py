@@ -11,7 +11,9 @@ setup(
     long_description=long_description,
     author="Bernd Gärtner, Konstantin Weddige",
     url="https://github.com/weddige/miniball",
-    packages=["miniball",],
+    packages=[
+        "miniball",
+    ],
     package_data={"miniball": ["py.typed"]},
     ext_modules=[
         Extension(
