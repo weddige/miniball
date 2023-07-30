@@ -29,6 +29,9 @@
 #include <ctime>
 #include <limits>
 
+// keep in sync with python_requires
+#define Py_LIMITED_API 0x030600f0
+
 namespace Miniball {
 
   // Global Functions
